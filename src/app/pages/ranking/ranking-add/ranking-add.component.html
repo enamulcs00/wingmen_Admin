@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Edit Rank</h4>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="d-block">Rank Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                    <p class="errors" *ngIf="isSubmitted && form.get('name').hasError('required')">This field is required</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="d-block">Rank Badge</label>
+                    <input class="form-control" type="file" (change)="onImageSelect($event)" id="badge" accept=".png, .jpg, .jpeg">
+                    <div *ngIf="image">
+                        <img src="{{image}}" width="100px" height="100px">
+                    </div>
+                <p class="errors" *ngIf="isSubmitted && form.get('badge').hasError('required')">This field is required</p>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <h6>Minimum Requirements</h6>
+            </div>
+            <div class="col-md-4">
+                <label class="d-block">Time Since Registration</label>
+                <select class="form-control" formControlName="minTime">
+                    <option value="1">1 year</option>
+                    <option value="2">2 year</option>
+                    <option value="3">3 year</option>
+                    <option value="4">4 year</option>
+                    <option value="5">5 year</option>
+                </select>
+                <p class="errors" *ngIf="isSubmitted && form.get('minTime').hasError('required')">This field is required</p>
+            </div>
+            <div class="col-md-4">
+                <label class="d-block">Average Rating</label>
+                <select class="form-control" formControlName="minRating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <p class="errors" *ngIf="isSubmitted && form.get('minRating').hasError('required')">This field is required</p>
+            </div>
+            <div class="col-md-4">
+                <label class="d-block">Rides Completed</label>
+                <select class="form-control" formControlName="minRides">
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
+                    <option value="400">400</option>
+                    <option value="500">500</option>
+                </select>
+                <p class="errors" *ngIf="isSubmitted && form.get('minRides').hasError('required')">This field is required</p>
+            </div>
+            <div class="col-md-12 mt-2">
+                <button class="btn btn-primary" role="form" type="submit">Update</button>
+            </div>
+        </div>
+    </form>
+</div>

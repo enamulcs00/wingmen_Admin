@@ -1,0 +1,32 @@
+<div class="modal" id="addUpdateStateModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{isEdit?'Edit':'Add'}} State</h5>
+            </div>
+            <div class="modal-body">
+                <form #stateForm="ngForm">
+                   
+                    <div class="form-group">
+                        <label>State</label>
+                        <input type="text" class="form-control" maxlength="20" name="name" [(ngModel)]="stateName"
+                            required />
+                    </div>
+                  
+                </form>
+            </div>
+            <div class="modal-footer">
+               
+                <button *ngIf="!isEdit" type="button" class="btn btn-primary"
+                    [disabled]="!stateForm.valid || flags.isAdded"
+                    (click)="addState()">{{flags.isAdded?'Saving...':'Save'}}</button>
+                <button *ngIf="isEdit" type="button" class="btn btn-primary"
+                    [disabled]="!stateForm.valid || flags.isUpdate"
+                    (click)="editState()">{{flags.isUpdate?'Updating...':'Update'}}</button>
+                <button type="button" class="btn btn-secondary" id="closeStateModal" (click)="onCancel()"
+                    data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="openStateModal" data-toggle="modal" data-target="#addUpdateStateModal">

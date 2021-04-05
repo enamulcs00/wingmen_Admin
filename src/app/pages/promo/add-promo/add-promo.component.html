@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row filter_srch_from">
+                        <div class="col-md-6">
+                            <h6 class="m-0 font-weight-bold text-primary">ADD COUPON</h6>
+                        </div>
+                        <div class="col-md-6 text-right add_btn">
+                            <button class="btn btn-primary" (click)="history.back()">
+                <span class="fas fa-arrow-left"></span> Back
+              </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form #couponForm="ngForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Promo Code</label>
+                            <input type="text" name="promoCode" [(ngModel)]="body.promoCode" maxlength="50" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Discount Type</label>
+                            <select name="type" class="form-control" [(ngModel)]="type" (change)="selectType()" required>
+                <option value="">Select Type</option>
+                <option value="Flat">Flat</option>
+                <option value="Percentage">Percentage</option>
+              </select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="body.isCash" class="col-md-6">
+                        <div class="form-group">
+                            <label>Cash Back</label>
+                            <input type="text" name="cashback" [(ngModel)]="body.cashback" maxlength="50" class="form-control" required appNumberOnly />
+                        </div>
+                    </div>
+
+                    <div *ngIf="!body.isCash" class="col-md-6">
+                        <div class="form-group">
+                            <label>Percentage</label>
+                            <input type="text" name="percentage" [(ngModel)]="body.percentage" maxlength="50" class="form-control" required appNumberOnly />
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Minimum Booking Price</label>
+                            <input type="text" name="minimumBookingPrice" [(ngModel)]="body.minimumBookingPrice" maxlength="50"
+                                class="form-control" required  appNumberOnly/>
+                        </div>                    
+                    </div> -->
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>User Attempt</label>
+                            <input type="text" name="individualUserPromoAttempt" [(ngModel)]="body.individualUserPromoAttempt" maxlength="50" class="form-control" required appNumberOnly />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Promo Users Numbers</label>
+                            <input type="text" name="noOfPromoUsers" [(ngModel)]="body.noOfPromoUsers" maxlength="50" class="form-control" required appNumberOnly />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Expire Date</label>
+                            <input type="text" name="startDate" bsDatepicker [bsConfig]="bsConfig" [minDate]="min" [(ngModel)]="body.expireDate" class="form-control" required readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" [disabled]="!couponForm.valid || flags.isAdded" (click)="addCoupon()">
+              <span class="fas fa-save"></span>
+              {{ flags.isAdded ? "Saving..." : "Save" }}
+            </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

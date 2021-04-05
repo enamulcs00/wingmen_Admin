@@ -1,0 +1,35 @@
+form.user .btn-user {
+    padding: 0.75rem 4rem !important;
+    margin: auto !important;
+}
+
+.btn-block {
+    width: auto !important;
+}
+
+.panel {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-57%, 39%);
+}
+
+.user {
+    line-height: 2.5rem;
+}
+
+.login_pagee {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.login_outer_div {
+    width: 100%;
+    margin: 0px;
+}
+
+.p-5 {
+    padding: 1rem !important;
+}

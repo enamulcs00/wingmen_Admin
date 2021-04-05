@@ -1,0 +1,118 @@
+<div class="progress-loader" [hidden]="!loading">
+    <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+    </mat-progress-spinner>
+</div>
+<div class="container-fluid">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">BROADCAST</h5>
+            </div>
+            <div class="modal-body">
+                <form #f="ngForm" name="form" (ngSubmit)="f.form.valid && pushBroadCast(f)">
+                    <div class="form-group">
+                        <label class="w-100">Select User Type</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" (change)="changeUserType($event.target.value, f)"
+                                name="userType" [(ngModel)]="userType" id="inlineRadio3" value="ALL" required/>
+                            <label class="form-check-label" for="inlineRadio3">ALL</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" (change)="changeUserType($event.target.value, f)"
+                                name="userType" [(ngModel)]="userType" id="inlineRadio1" value="DRIVER" required />
+                            <label class="form-check-label" for="inlineRadio1">DRIVER</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" (change)="changeUserType($event.target.value, f)"
+                                name="userType" [(ngModel)]="userType" id="inlineRadio2" value="USER" required>
+                            <label class="form-check-label" for="inlineRadio2">USER</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="w-100">Select Notification Type</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="messageType" [(ngModel)]="type"
+                                id="inlineRadio3" value="SMS" required />
+                            <label class="form-check-label" for="inlineRadio3">SMS</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="messageType" [(ngModel)]="type"
+                                id="inlineRadio4" value="PUSH" required>
+                            <label class="form-check-label" for="inlineRadio4">PUSH</label>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="category-banner">
+                        <div class="form-group">
+                            <label>User</label>
+                            <ng-multiselect-dropdown [placeholder]="'Select User'" [data]="itemList"
+                                [settings]="dropdownSettings" (onSelect)="onItemSelect($event, 1)"
+                                (onDeSelect)="onDeSelect($event, 1)">
+                            </ng-multiselect-dropdown>
+                        </div>
+                    </div> -->
+
+                    <!--<div *ngIf="bannerFor == '2'" class="category-banner">
+                        <div class="form-group">
+                            <label>Driver</label>
+                            <ng-multiselect-dropdown [placeholder]="'Select User'" [data]="userList"
+                                [settings]="dropDownSetting" (onSelect)="onItemSelect($event, 1)"
+                                (onDeSelect)="onDeSelect($event, 1)">
+                            </ng-multiselect-dropdown>
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label>Users</label>
+                        <angular2-multiselect
+                        [ngModelOptions]="{standalone: true}"
+                        [data]="dropdownList"
+                        [(ngModel)]="selectedItems"
+                        [settings]="dropdownSettings"
+                        (onScrollToEnd)="fetchMore($event)"
+                        (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)">
+                    </angular2-multiselect>
+                    </div> -->
+                    <div class="form-group">
+                        <label>Select Users</label>
+                        <angular2-multiselect [data]="itemList" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="selectedItems" [settings]="settings"
+                            (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                            (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                            (onOpen)="onOpen($event)">
+                        </angular2-multiselect>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control text-capitalize" name="title" maxlength="25" ngModel
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea type="text" class="form-control text-capitalize" rows="05" name="message"
+                            maxlength="250" ngModel required></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button *ngIf="userId.length" type="submit" class="btn btn-primary"
+                            [disabled]="f.form.invalid">Send</button>
+                        <button *ngIf="!userId.length" type="submit" class="btn btn-primary"
+                            [disabled]="f.form.invalid">Send To All</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</div>

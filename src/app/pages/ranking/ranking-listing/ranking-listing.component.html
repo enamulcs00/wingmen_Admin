@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-9 filter_srch_from">
+                    <div class="filter_srch_item">
+                        <h6 class="m-0 font-weight-bold text-primary">Rankings</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a routerLink="/wingmen/ranking/add" class="btn btn-primary float-right">Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Badge</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of rankings">
+                            <td>{{ item.rank }}</td>
+                            <td><img class="img-profile rounded-circle" [src]="item.badge"></td>
+                            <td>
+                                <div class="product_action">
+                                    <button routerLink="/wingmen/ranking/add/{{item._id}}" class="btn btn-primary">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!rankings.length">
+                            <td colspan="3" class="text-center">No items found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+<app-booking-modal [requestId]="bookingId" [driverList]="availableDriver" [user]="userDetail" [stop]="stops"
+    [driver]="driverDetail" [vehicle]="vehicleDetail" (onDriverAssign)="getallBooking()" [DriverReview]="driverReview">
+</app-booking-modal>

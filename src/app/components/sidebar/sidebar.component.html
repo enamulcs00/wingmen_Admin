@@ -1,0 +1,38 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-1" href="javascript:void(0)"
+        routerLink="/dashboard/users">
+        <div class="sidebar-brand-icon">
+            <!--      <i class="fas fa-laugh-wink"></i>-->
+            <figure>
+                <img src="assets/img/wingmanlogo.png" style="width:151px;height:57px;margin-top: 13px;">
+            </figure>
+        </div>
+        <!-- <div class="sidebar-brand-text mx-3">WingMen</div> -->
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+    <!--  <div class="sidebar-heading">-->
+    <!--    Addons-->
+    <!--  </div>-->
+
+
+    <!-- Nav Item - Charts -->
+    <li *ngFor="let item of menuItems; let i = index" routerLink="{{item.path}}" routerLinkActive="active"
+        class="nav-item">
+        <a class="nav-link close_side_span" href="javascript:void(0)" title={{item.title}}>
+            <img src="{{item.icon}}">
+            <span>{{item.title}}</span></a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>
+<!-- End of Sidebar -->

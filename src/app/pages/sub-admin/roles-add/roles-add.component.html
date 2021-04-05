@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{ id ? 'Edit' : 'Add' }} Role</h4>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="d-block">Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                    <p class="errors" *ngIf="isSubmitted && form.get('name').hasError('required')">This field is
+                        required</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="d-block">Capabilities</label>
+                <mat-select class="form-control" multiple formControlName="capabilities">
+                    <mat-option [disabled]="c.value==='hasDashboard' || c.value==='hasSubAdmin'" *ngFor="let c of capabilities" [value]="c.value">{{ c.name }}</mat-option>
+                </mat-select>
+                <p class="errors" *ngIf="isSubmitted && form.get('capabilities').hasError('required')">This field is
+                    required</p>
+            </div>
+            <div class="col-md-12 mt-2">
+                <button class="btn btn-primary" role="form" type="submit">{{ id ? 'Update' : 'Add'}}</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+.filter_srch_from {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1100px) {
+    .user_page_tbl {
+        max-width: 500%;
+        width: 300%;
+    }
+}
+
+.filter_srch_item {
+    margin-right: 18px;
+}
+
+.sub_btn button:nth-child(1) {
+    margin-right: 16px;
+}
+
+@media (max-width: 600px) {
+    .user_page_tbl {
+        max-width: 500%;
+        width: 450%;
+    }
+    .row.filter_srch_from {
+        flex-wrap: wrap;
+    }
+    .filter_srch_item {
+        width: 100%;
+        margin-bottom: 13px;
+    }
+}
+
+@media (max-width: 400) {}

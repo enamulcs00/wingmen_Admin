@@ -1,0 +1,252 @@
+/* You can add global styles to this file, and also import other style files */
+
+.active {
+    color: #ffffff;
+    font-weight: bold !important;
+    font-size: 0.9rem !important;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.badge {
+    padding: 0.5em 0.4em !important;
+}
+
+.bg-gradient-primary {
+    height: 100% !important;
+}
+
+.switch-medium.switch-labeled {
+    width: 71px !important;
+}
+
+.switch-medium.switch-labeled.checked small {
+    left: 40px !important;
+}
+
+.product_action {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.progress-loader {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(74, 74, 74, 0.8);
+    z-index: 99999;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#time-picker-wrapper {
+    z-index: 1055 !important;
+}
+
+.nav-link span {
+    opacity: 0;
+}
+
+.sidebar-toggled .nav-link span {
+    padding-left: 22px;
+    font-size: 16px !important;
+    opacity: 1;
+}
+
+@media (max-width: 767px) {
+    .sidebar-toggled .nav-link span {
+        padding-left: 0px;
+    }
+}
+
+.sidebar-toggled .nav-link span {
+    padding-left: 0px;
+    opacity: unset;
+}
+
+.toggled a.nav-link.close_side_span span {
+    opacity: 0;
+    font-size: 0px !important;
+}
+
+a.nav-link.close_side_span span {
+    opacity: 1;
+    padding-left: 20px;
+}
+
+.description {
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
+    // display: block;
+    // overflow: hidden;
+    // width: 10em;
+    // padding: 35px 0px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    width: 10em;
+    padding: 35px 5px !important;
+    border: none !important;
+    border-bottom: 1px solid #e3e6f0 !important;
+}
+
+.filter_srch_from {
+    display: flex;
+    align-items: center;
+}
+
+.filter_srch_item {
+    margin-right: 18px;
+}
+
+.vehicle_page .filter_srch_item:nth-child(2) {
+    width: 302px;
+}
+
+.driver_page .filter_srch_item:nth-child(2) {
+    width: 270px;
+}
+
+.add_btn span:before {
+    padding-right: 13px;
+}
+
+.pagination {
+    margin-top: 15px;
+}
+
+@media (max-width: 1500px) {
+    .booking_page table.table.table-bordered {
+        max-width: 500%;
+        width: 151%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .booking_page table.table.table-bordered {
+        width: 203%;
+    }
+    .vehicle_page table.table.table-bordered {
+        max-width: 500%;
+        width: 230%;
+    }
+    .booking_history_page table {
+        max-width: 500%;
+        width: 218%;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter_srch_item {
+        width: 100%;
+        margin-bottom: 16px;
+        margin-right: 0px;
+    }
+    .filter_srch_item select {
+        width: 100%;
+    }
+    .booking_page table.table.table-bordered {
+        width: 295%;
+    }
+    .vehicle_page .filter_srch_item:nth-child(2) {
+        width: 100%;
+    }
+    .driver_page .filter_srch_item:nth-child(2) {
+        width: 100%;
+    }
+    .booking_history_page table {
+        width: 280%;
+    }
+}
+
+@media (max-width: 767px) {
+    a.nav-link.close_side_span span {
+        padding-left: 0px;
+    }
+    .sidebar .nav-item .nav-link {
+        text-align: center;
+        padding: 7px 6px;
+        width: auto;
+    }
+    table th,
+    td {
+        font-size: 13px;
+    }
+    a.page-link {
+        font-size: 14px;
+    }
+    .table-responsive h4 {
+        font-size: 15px;
+        padding-bottom: 10px;
+    }
+    ul#accordionSidebar {
+        width: 254px;
+    }
+    .sidebar .nav-item .nav-link {
+        width: 100% !important;
+    }
+    .product_action span {
+        font-size: 13px;
+    }
+    .product_action button {
+        padding: 7px 8px;
+        line-height: 0px;
+    }
+    h5.modal-title {
+        font-size: 16px;
+    }
+    .add_btn button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .service_type table.table.table-bordered {
+        max-width: 500% !important;
+        width: 257% !important;
+    }
+    .add_btn button {
+        width: 100%;
+        font-size: 16px;
+    }
+    .booking_page table.table.table-bordered {
+        width: 352%;
+    }
+    .vehicle_page table.table.table-bordered {
+        width: 470%;
+    }
+    .add_btn {
+        margin-top: 12px;
+    }
+    .container-fluid {
+        padding: 0 10px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .booking_page table.table.table-bordered {
+        width: 400%;
+    }
+    .booking_history_page table {
+        max-width: 600%;
+        width: 572%;
+    }
+}

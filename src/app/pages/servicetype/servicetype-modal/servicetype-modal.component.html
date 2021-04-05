@@ -1,0 +1,97 @@
+<div class="modal" id="addUpdateServiceTypeModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{isEdit?'Edit':'Add'}} Service Type</h5>
+            </div>
+            <div class="modal-body">
+                <form #serviceTypeForm="ngForm">
+                    <div class="form-group">
+                        <!-- <label>Image</label><br> -->
+                        <label class="file">
+                            <input type="file" (change)="onImageSelect($event)" id="categoryFile"
+                                accept=".png, .jpg, .jpeg">
+                        </label>
+                        <div *ngIf="src">
+                            <img src="{{src}}" width="100px" height="100px">
+                            <p><a href="javascript:void(0)" (click)="onImageRemove()">Remove</a></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" maxlength="20" name="serviceName" [(ngModel)]="serviceTypeName"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label>Base Fare</label>
+                        <input type="text" class="form-control" maxlength="20" name="baseFare" [(ngModel)]="baseFare"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label>Cost per mile</label>
+                        <input type="text" class="form-control" maxlength="20" name="perMileCost" [(ngModel)]="perMileCost"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label>Cost per minute</label>
+                        <input type="text" class="form-control" maxlength="20" name="perMinuteCost" [(ngModel)]="perMinuteCost"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <input type="text" class="form-control" maxlength="50" name="note" [(ngModel)]="note"
+                            required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group d-flex">
+                                <label class="mt-1 mr-2">Note Show</label>
+                                <ui-switch labelOn="ON" switchColor="#4e73df"  [(ngModel)]="isNoteShow" 
+                                name="isNoteShow" labelOff="OFF"></ui-switch>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">                   
+                            <div class="form-group d-flex">
+                                <label class="mt-1 mr-2">Event Service</label>
+                                <ui-switch labelOn="ON" switchColor="#4e73df"  [(ngModel)]="isEventService" 
+                                name="isEventService" labelOff="OFF"></ui-switch>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Single Trip</label><br>
+                                <ui-switch labelOn="ON" switchColor="#4e73df"  [(ngModel)]="isSingleTrip" 
+                                name="isSingleTrip" labelOff="OFF"></ui-switch>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Round Trip</label><br>
+                                <ui-switch labelOn="ON" switchColor="#4e73df"  [(ngModel)]="isRoundTrip" 
+                                name="isRoundTrip" labelOff="OFF"></ui-switch>
+                            </div>
+                        </div> -->
+                    </div>
+                   
+                  
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- <button *ngIf="!isEdit" type="button" class="btn btn-primary" (click)="addCategory()">{{flags.isAdded?'Saving...':'Save'}}</button>
+          <button *ngIf="isEdit" type="button" class="btn btn-primary" (click)="editCategory()">{{flags.isUpdate?'Updating...':'Update'}}</button> -->
+                <!-- <button type="button" class="btn btn-primary">Update/Add</button>
+                <button type="button" class="btn btn-secondary" id="closeCategoryModal" (click)="onCancel()"
+                    data-dismiss="modal">Cancel</button> -->
+                <button *ngIf="!isEdit" type="button" class="btn btn-primary"
+                    [disabled]="!serviceTypeForm.valid || flags.isAdded"
+                    (click)="addServiceType()">{{flags.isAdded?'Saving...':'Save'}}</button>
+                <button *ngIf="isEdit" type="button" class="btn btn-primary"
+                    [disabled]="!serviceTypeForm.valid || flags.isUpdate"
+                    (click)="editServiceType()">{{flags.isUpdate?'Updating...':'Update'}}</button>
+                <button type="button" class="btn btn-secondary" id="closeServiceTypeModal" (click)="onCancel()"
+                    data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="openServiceTypeModal" data-toggle="modal" data-target="#addUpdateServiceTypeModal">

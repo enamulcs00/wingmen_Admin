@@ -1,0 +1,117 @@
+<div class="container-fluid vehicle_page">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row filter_srch_from">
+                <div class="filter_srch_item">
+                    <h6 class="pt-1 font-weight-bold text-primary" style="font-size: 15px">
+                        VEHICLE
+                    </h6>
+                </div>
+                <div class="filter_srch_item">
+                    <input type="text" class="form-control" name="search" [(ngModel)]="selectVehicle" placeholder="Search Vehicle by Name,Make" />
+                </div>
+                <div class="filter_srch_item">
+                    <button type="submit" class="btn btn-primary pl-4 pr-4" (click)="searchVehicle()">
+            Search
+          </button>
+                    <button type="reset" class="btn btn-primary pl-4 pr-4 ml-2" (click)="reset()">
+            Reset
+          </button>
+                </div>
+                <div class="filter_srch_item text-right">
+                    <select name="driverType" id="type" class="form-control" [(ngModel)]="vehicleType" (change)="getVehicleType()">
+            <option value="">--All--</option>
+            <option value="driver">Driver Vehicle</option>
+            <option value="user">Customer Vehicle</option>
+          </select>
+                </div>
+                <!-- <div class="col-md-6 text-right">
+                    <button class="btn btn-primary" routerLink="wingmen/vehicles/add-vehicle" ><span
+                            class="fas fa-plus"></span> Add Vehicle</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <!-- <th>Vehicle Name</th> -->
+                            <th>Vehicle Images</th>
+                            <th>Vehicle Make</th>
+                            <th>Vehicle Model</th>
+                            <th>Color</th>
+                            <th>Is Driver Vehicle</th>
+                            <th>Vehicle Type</th>
+                            <th>Transmission Type</th>
+                            <th>Owner Detail</th>
+                            <th>Plate Number</th>
+                            <th>Vehicle Documents</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
+                    <tbody>
+                        <tr *ngFor="let item of vehicleList; let i = index">
+                            <td>{{ i + serialNumber + 1 }}</td>
+                            <td>
+                                <img [src]="
+                    item.vehicleImage
+                      ? imageUrl + item.vehicleImage
+                      : defaultImage
+                  " style="width: 70px; height: 70px" alt="" />
+                            </td>
+                            <!-- <td>{{item.vehicleName}}</td> -->
+                            <!-- <td *ngIf="!item.carFrontImage && !item.carLeftImage">'N/A'</td> -->
+                            <td>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#vehicleimageModal" (click)="pushImage(item)">
+                  <span class="fas fa-eye"></span>
+                </button>
+                            </td>
+
+                            <td>{{ item.vehicleMake }}</td>
+                            <td>{{ item.vehicleModel }}</td>
+                            <td>{{ item.color }}</td>
+                            <td>{{ item.isDriverVehicle }}</td>
+                            <td>{{ item.vehicleTypeData[0]?.vehicleTypeName }}</td>
+                            <td>{{ item.transmissionTypeData[0]?.transmissionTypeName }}</td>
+                            <td>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#ownerDetailModal" (click)="getOwnerDetail(item)">
+                  <span class="fas fa-eye"></span>
+                </button>
+                            </td>
+                            <td>{{ item.plateNumber }}</td>
+
+                            <td>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#vehicleDocsModal" (click)="getDocs(item)">
+                  <span class="fas fa-eye"></span>
+                </button>
+                            </td>
+
+                            <td>
+                                <div class="product_action">
+                                    <button class="btn btn-primary mr-1" title="Edit" routerLink="/wingmen/vehicles/edit-vehicle/{{ item._id }}">
+                    <span class="fas fa-fw fa-edit"></span>
+                  </button>
+                                    <!-- <button (click)="deleteVehicle(item._id)" class="btn btn-danger" title="Delete"><span
+                                            class="fas fa-fw fa-trash"></span></button> -->
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="!vehicleList?.length" class="text-center">
+                    No records found.
+                </h4>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+<app-vehicle-modal [indocument]="insurance" [images]="images" [vehicleDocs]="docs" [owner]="ownerDetail"></app-vehicle-modal>

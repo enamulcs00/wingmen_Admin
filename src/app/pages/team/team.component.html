@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row filter_srch_from">
+                <div class="col-md-6">
+                    <h6 class="m-0 font-weight-bold text-primary">TEAM</h6>
+                </div>
+                <div class="col-md-6 text-right add_btn">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addUpdateTeamModal">
+            <span class="fas fa-plus"></span> Add Team
+          </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team Name</th>
+                            <th>Team Members</th>
+                            <th>Created Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
+                    <tbody>
+                        <tr *ngFor="let item of teamList; let i = index">
+                            <td>{{ i + serialNumber + 1 }}</td>
+                            <td>{{ item.teamName }}</td>
+                            <td>{{ item.teamMembers }}</td>
+
+                            <td>{{ item.createdAt | date: "yyyy-MM-dd" }}</td>
+                            <td>
+                                <div class="product_action">
+                                    <button class="btn btn-primary mr-1" title="Edit" (click)="modalComponent.onEditSelect(item)">
+                    <span class="fas fa-fw fa-edit"></span>
+                  </button>
+                                    <button class="btn btn-danger" title="Delete" (click)="deleteTeam(item._id)">
+                    <span class="fas fa-fw fa-trash"></span>
+                  </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="!teamList?.length" class="text-center">No records found.</h4>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+<app-team-modal [isEdit]="flags.isEdit" (onAddEdit)="getTeam()"></app-team-modal>

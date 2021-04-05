@@ -1,0 +1,194 @@
+<div class="container-fluid booking_page">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-9 filter_srch_from">
+                    <div class="filter_srch_item">
+                        <h6 class="m-0 font-weight-bold text-primary">Booking</h6>
+                    </div>
+                    <div class="filter_srch_item">
+                        <input type="text" class="form-control" name="search" [(ngModel)]="selectBooking"
+                            placeholder="Search by Booking No. " />
+                    </div>
+                    <div class="filter_srch_item">
+                        <button type="submit" class="btn btn-primary pl-4 pr-4" (click)="searchBooking()">
+                            Search
+                        </button>
+                        <button type="reset" class="btn btn-primary pl-4 pr-4 ml-2" (click)="reset()">
+                            Reset
+                        </button>
+                    </div>
+                    <div class="filter_srch_item">
+                        <select name="bookingType" class="form-control" [(ngModel)]="bookingType"
+                            (change)="getBookingType()">
+                            <option value="">All</option>
+                            <option value="past">Past Booking</option>
+                            <option value="upcoming">Upcoming Booking</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <button (click)="exportCsv()" class="btn btn-primary float-right">Export</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Source</th>
+                            <th>Destination</th>
+                            <th>Stops</th>
+                            <th>Booking No</th>
+                            <th>Booking Date</th>
+                            <th>Booking Time</th>
+                            <th>Total Amount ($)</th>
+                            <th>Service Type</th>
+                            <th>User Detail</th>
+                            <th>Booking Vehicle</th>
+                            <!-- <th>Payment Status</th> -->
+                            <th>Total Distance(Miles)</th>
+                            <th>Total Duration(Minutes)</th>
+                            <th>Passenger No</th>
+                            <th>Trip Type</th>
+                            <th>Live</th>
+                            <th>Driver Review</th>
+                            <th>Payment Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
+                    <tbody>
+                        <tr *ngFor="let item of bookingList; let i = index">
+                            <td>{{ i + serialNumber + 1 }}</td>
+                            <td>{{ item.pickUpAddress }}</td>
+                            <td>{{ item.dropUpAddress }}</td>
+                            <td>
+                                <button (click)="getStops(item)" class="btn btn-primary" data-target="#stopsModal"
+                                    data-toggle="modal">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <td>{{ item.bookingNo }}</td>
+                            <td>{{ item.bookingDate | date: "yyyy-MM-dd" }}</td>
+                            <td>{{ item.bookingDate | date: "h:mm a" }}</td>
+
+                            <td>{{ item.totalAmount | currency:'USD' }}</td>
+                            <td>{{ item.seviceTypeData.serviceName }}</td>
+                            <td>
+                                <button (click)="userDetail = item.userData" class="btn btn-primary"
+                                    data-target="#userDetailModal" data-toggle="modal">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button (click)="vehicleDetail = item.userVehicleData" class="btn btn-primary"
+                                    data-target="#vehicleDetailModal" data-toggle="modal">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <!-- <td>{{item.paymentStatus}}</td> -->
+                            <td>{{ convertToMiles(item.totalDistance) }}</td>
+                            <td>{{ item.eta }}</td>
+                            <!-- <td>{{ item.totalDistance | number: "1.3-3" }}</td> -->
+                            <td>{{ item.passengerNo }}</td>
+                            <td>{{ item.tripType }}</td>
+                            <td>
+                                <button (click)="driverReview = item.driverReview" class="btn btn-primary"
+                                    data-target="#viewlocation" data-toggle="modal">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button (click)="driverReview = item.driverReview" class="btn btn-primary"
+                                    data-target="#reviewModal" data-toggle="modal">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <!-- <td><span class="badge badge-info">{{item.bookingStatus}}</span></td> -->
+                            <td>
+                                <span [ngClass]="(item.paymentStatus == 'REFUND') ? 'badge-danger' : (item.paymentStatus == 'PENDING') ? 'badge-info' : 'badge-success'"
+                                class="badge mr-1">{{ item.paymentStatus }}</span>
+                            </td>
+                            <td>
+                                <div class="product_action">
+                                    <div *ngIf="
+                      item.bookingStatus == 'PENDING' ||
+                      item.bookingStatus == 'ACCEPTED' ||
+                      item.bookingStatus == 'ARRIVED' ||
+                      item.bookingStatus == 'STARTED' ||
+                      item.bookingStatus == 'ONGOING' ||
+                      item.bookingStatus == 'COMPLETED'
+                    ">
+                                        <button *ngIf="!item.driverId && !item.coDriverId" class="btn btn-primary mr-1"
+                                            data-toggle="modal" data-target="#driverModal" (click)="getDriver(item)">
+                                            Assign
+                                        </button>
+
+                                        <button *ngIf="item.driverId && item.passengerNo > 0"
+                                            class="btn btn-primary mr-1" data-toggle="modal"
+                                            data-target="#driverDetailModal" (click)="driverDetail = item.driverData">
+                                            <span class="fas fa-eye"></span>
+                                        </button>
+
+                                        <button *ngIf="item.coDriverId" class="btn btn-primary mr-1" data-toggle="modal"
+                                            data-target="#driverDetailModal" (click)="driverDetail = item.coDriverData">
+                                            <span class="fas fa-eye"></span>
+                                        </button>
+                                    </div>
+                                    <!-- <button *ngIf="item.bookingStatus == 'PENDING'" class="btn btn-primary mr-1"
+                                        (click)="acceptBooking(item)" >Accepted</button> -->
+                                    <button *ngIf="item.bookingStatus == 'PENDING'" class="btn btn-primary mr-1">
+                                        Pending
+                                    </button>
+                                    <span *ngIf="item.bookingStatus == 'ACCEPTED'"
+                                        class="badge badge-info mr-1">Accepted</span>
+                                    <span *ngIf="item.bookingStatus == 'ARRIVED'"
+                                        class="btn btn-primary mr-1">Arrived</span>
+                                    <span *ngIf="item.bookingStatus == 'STARTED'"
+                                        class="badge badge-info mr-1">Started</span>
+                                    <span *ngIf="item.bookingStatus == 'COMPLETED'" class="badge badge-success mr-1"
+                                        disabled>Completed</span>
+                                    <span *ngIf="item.bookingStatus == 'CANCELED'" class="badge badge-danger mr-1"
+                                        disabled>Canceled</span>
+                                    <span title="REFUND" *ngIf="(item.bookingStatus == 'COMPLETED') && (item.paymentStatus == 'COMPLETED')" class="badge badge-success mr-1" disabled>
+                                        <button class="text-white btn btn-link btn-sm p-0 m-0" (click)="initiateRefund(item._id)">
+                                            <i class="fa fa-history"></i>
+                                        </button>
+                                    </span>
+                                    <!-- <button
+                                        *ngIf="item.bookingStatus == 'PENDING'"
+                                        class="btn btn-danger"
+                                         >Cancel</button>                               -->
+                                </div>
+                            </td>
+
+                            <!-- <td>
+                                <div class="product_action">
+                                    <button class="btn btn-primary mr-1" routerLink="/drivers/edit-driver/{{item._id}}"
+                                        ><span
+                                            class="fas fa-fw fa-edit"></span></button>
+                                    <button class="btn btn-danger" (click)="deleteDriver(item._id)"><span
+                                            class="fas fa-fw fa-trash"></span></button>
+                                </div>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="!bookingList?.length" class="text-center">
+                    No records found.
+                </h4>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+<app-booking-modal [requestId]="bookingId" [driverList]="availableDriver" [user]="userDetail" [stop]="stops"
+    [driver]="driverDetail" [vehicle]="vehicleDetail" (onDriverAssign)="getallBooking()" [DriverReview]="driverReview">
+</app-booking-modal>

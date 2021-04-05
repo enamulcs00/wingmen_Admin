@@ -1,0 +1,113 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row filter_srch_from">
+                <div class="filter_srch_item">
+                    <h6 class="m-0 font-weight-bold text-primary">USERS</h6>
+                </div>
+                <div class="filter_srch_item">
+                    <input type="text" class="form-control" name="search" [(ngModel)]="selectUser"
+                        placeholder="Search User" />
+                </div>
+                <div class="filter_srch_item sub_btn">
+                    <button type="submit" class="btn btn-primary" (click)="searchUser()">
+                        Search
+                    </button>
+                    <button type="reset" class="btn btn-primary" (click)="reset()">
+                        Reset
+                    </button>
+                </div>
+                <!-- <div class="col-md-4 text-right">
+                    <button class="btn btn-primary" routerLink="/wingmen/users/add-user" ><span
+                            class="fas fa-plus"></span> Add User</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered user_page_tbl" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Total Booking</th>
+                            <th>Profile Status</th>
+                            <th>Booking History</th>
+                            <th>Sign-Up Type</th>
+                            <th>Is Verified</th>
+                            <!-- <th>Is Approved</th> -->
+                            <th>Is Blocked</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
+                    <tbody>
+                        <tr *ngFor="let item of userList; let i = index">
+                            <td>{{ i + serialNumber + 1 }}</td>
+                            <td>
+                                <img [src]="item.image ? imageUrl + item.image : defaultImage"
+                                    style="width: 70px; height: 70px" alt="" />
+                            </td>
+                            <td>{{ item.firstName }}</td>
+                            <td>{{ item.lastName }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.countryCode }} {{ item.phone }}</td>
+                            <td>{{ item.gender }}</td>
+                            <td class="description">{{ item.address }}</td>
+                            <td>{{ item.totalBooking }}</td>
+                            <td>{{ item.profileStatus | titlecase }}</td>
+                            <td>
+                                <button class="btn btn-primary"
+                                    routerLink="/wingmen/users/booking-history/{{ item._id }}">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <td>{{ item.singUpType | titlecase }}</td>
+
+                            <td>
+                                <button *ngIf="!item.isVerified" class="btn btn-warning" (click)="approveUser(item)">
+                                    Verify
+                                </button>
+                                <!-- <span *ngIf="!item.isVerified" class="badge badge-danger">Unverified</span> -->
+                                <span *ngIf="item.isVerified" class="badge badge-info">Verified</span>
+                            </td>
+                            <!-- <td>
+                                <button *ngIf="!item.isApproved" class="btn btn-primary"
+                                    (click)="approveUser(item)">Approve</button>
+                                <span *ngIf="item.isApproved" class="badge badge-info">Approved</span>
+                            </td> -->
+                            <td>
+                                <ui-switch labelOn="ON" switchColor="#4e73df" id="isActive" [(ngModel)]="item.isBlocked"
+                                    name="isActive" (click)="blockDeleteUser(item)" labelOff="OFF"></ui-switch>
+                            </td>
+                            <td>
+                                <div class="product_action">
+                                    <button class="btn btn-primary mr-1"
+                                        routerLink="/wingmen/users/edit-user/{{ item.id }}">
+                                        <span class="fas fa-fw fa-edit"></span>
+                                    </button>
+                                    <button class="btn btn-danger" (click)="deleteUser(item._id)">
+                                        <span class="fas fa-fw fa-trash"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="!userList?.length" class="text-center">No records found.</h4>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+<!-- <app-vehicle-modal  [documents]="selectedDocument"></app-vehicle-modal>  -->

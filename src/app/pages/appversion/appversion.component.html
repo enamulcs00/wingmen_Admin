@@ -1,0 +1,188 @@
+<div class="container-fluid">
+  
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="m-0 font-weight-bold text-primary">CMS</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form #versionForm="ngForm">
+                <div class="row">
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Latest Android Version</label>
+                            <input type="text" name="latestAndroidVersion" [(ngModel)]="latestAndroidVersion " maxlength="50"
+                                class="form-control"  required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Latest IOS Version</label>
+                            <input type="text" name="latestIOSVersion" [(ngModel)]="latestIOSVersion " maxlength="50"
+                                class="form-control"  required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>critical Android Version</label>
+                            <input type="text" name="criticalandversion" [(ngModel)]="criticalAndroidVersion"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Critical IOS Version</label>
+                            <input type="text" name="criticaliosversion" [(ngModel)]="criticalIOSVersion"
+                                 class="form-control"   required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Latest Web ID</label>
+                            <input type="text" name="latestwebid" [(ngModel)]="latestWebID"
+                                 class="form-control"   required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Critical Web ID</label>
+                            <input type="text" name="criticalwebid" [(ngModel)]="criticalWebID"
+                                class="form-control"   required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Update Message At Popup</label>
+                            <input type="text" name="updateMessageAtPopup" [(ngModel)]="updateMessageAtPopup"  
+                                  class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Update Title At Popup</label>
+                            <input  type="text" name="updateTitleAtPopup" [(ngModel)]="updateTitleAtPopup"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Latest Driver IOS Version</label>
+                            <input  type="text" name="latestDriverIOSVersion" [(ngModel)]="latestDriverIOSVersion"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Latest Driver Android Version</label>
+                            <input  type="text" name="latestDriverAndroidVersion" [(ngModel)]="latestDriverAndroidVersion"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Critical Driver Android Version</label>
+                            <input  type="text" name="criticalDriverAndroidVersion" [(ngModel)]="criticalDriverAndroidVersion"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Critical Driver IOS Version</label>
+                            <input  type="text" name="criticalDriverIOSVersion" [(ngModel)]="criticalDriverIOSVersion"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Driver Update Message At Popup</label>
+                            <input  type="text" name="driverUpdateMessageAtPopup" [(ngModel)]="driverUpdateMessageAtPopup"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Driver Update Title At Popup</label>
+                            <input  type="text" name="driverUpdateTitleAtPopup" [(ngModel)]="driverUpdateTitleAtPopup"  
+                                 class="form-control" required />
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>About Us</label>
+                            <input  type="text" name="aboutUs" [(ngModel)]="versionData.aboutUs"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Contact Us</label>
+                            <input  type="text" name="contactUs" [(ngModel)]="versionData.contactUs"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Terms & Condition</label>
+                            <input  type="text" name="termsAndCondition" [(ngModel)]="versionData.termsAndCondition"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Driver About Us</label>
+                            <input  type="text" name="driverAboutUs" [(ngModel)]="versionData.driverAboutUs"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Driver Contact Us</label>
+                            <input  type="text" name="driverContactUs" [(ngModel)]="versionData.driverContactUs"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Driver Terms & Condition</label>
+                            <input  type="text" name="driverTermsAndCondition" [(ngModel)]="versionData.driverTermsAndCondition"  
+                                 class="form-control" required />
+                        </div>
+                    </div>
+
+                   
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" (click)="setAppVersion(versionForm.value)" [disabled]="!versionForm.valid"><span
+                                class="fas fa-save"></span> {{flags.isUpdate?'Updating...':'Update'}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>     
+    </div>
+</div>

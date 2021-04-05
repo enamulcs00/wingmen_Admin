@@ -1,0 +1,241 @@
+ 
+ 
+<!-- Insurance Document Modal -->
+<div class="modal" id="indocumentModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Insurance Document</h5>
+            </div>
+            <div *ngIf="indocument" class="modal-body">
+                <div class="d-flex justify-content-around">
+                    <div class="col-md-04">
+                        <div class="form-group">
+                            <!-- <a href="{{imageUrl}}{{indocument}}" target="_blank"><img
+                                    src="{{imageUrl}}{{indocument}}" width="150" height="100"
+                                    alt="image"></a> -->
+                                    <pdf-viewer [src]="imageUrl+indocument"
+                                    [render-text]="false" [original-size]="true" [fit-to-page]="true" 
+                                    style="display: block;"
+                        ></pdf-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Vehicle Registeration  modal -->
+<div class="modal" id="vehicleDocsModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Vehicle Documents</h5>
+            </div>
+            <div *ngIf="vehicleDocs" class="modal-body">
+            
+                <div class="row justify-content-around">
+                    <div class="col-md-04">
+                        <div class="form-group">
+                                <div class="form-group">
+                                     <a *ngIf="vehicleDocs.insurance" href="{{imageUrl+vehicleDocs.insurance}}" target="_blank"><button class="btn btn-primary">Insurance</button></a>
+                                     <!-- <p *ngIf="!vehicleDocs.insurance">No Insurance Document</p> -->
+                                </div>                    
+                        
+                        </div>
+                    </div>
+                     
+                    <div class="col-md-04">
+                        <div class="form-group">
+                                <div class="form-group">
+                                     <a *ngIf="vehicleDocs.vehicleRegistration" href="{{imageUrl+vehicleDocs.vehicleRegistration}}" target="_blank"><button class="btn btn-primary">Registration</button></a>
+                                     <!-- <p *ngIf="!vehicleDocs.vehicleRegistration">No Registration</p> -->
+                                </div>                    
+                        
+                        </div>
+                    </div>
+
+                    <div class="col-md-04">
+                        <div class="form-group">
+                                <div class="form-group">
+                                     <a *ngIf="vehicleDocs.dl" href="{{imageUrl+vehicleDocs.dl}}" target="_blank"><button class="btn btn-primary">Driving Certificate</button></a>
+                                     <!-- <p *ngIf="!vehicleDocs.dl">No Driving Certificate</p> -->
+                                </div>                    
+                        
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-04">
+                        <div class="form-group">
+                                <div class="form-group">
+                                     <a *ngIf="vehicleDocs.license" href="{{imageUrl+vehicleDocs.license}}" target="_blank"><button class="btn btn-primary">License</button></a>
+                                   
+                                </div>                    
+                        
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="col-md-04">
+                        <div class="form-group">
+                                <div class="form-group">
+                                     <a *ngIf="vehicleDocs.taxiPermit" href="{{imageUrl+vehicleDocs.taxiPermit}}" target="_blank"><button class="btn btn-primary">Taxi Permit</button></a>
+                                 </div>                    
+                        
+                        </div>
+                    </div> -->
+                </div>
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Vehicle image modal -->
+<div class="modal" id="vehicleimageModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="max-width:720px" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Vehicle Image</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-around">
+                    <ng-container *ngIf="images.carBackImage">
+                    <div class="mt-3">
+                        <a href="{{imageUrl}}{{images.carBackImage}}" target="_blank"><img
+                                src="{{imageUrl}}{{images.carBackImage}}" width="250" height="200"
+                                alt="No Image"></a>
+                                <p class="text-center mt-1">Back Image</p>
+                        </div>  
+                    
+                    </ng-container>
+
+                    <ng-container *ngIf="images.carFrontImage">
+                        <div class="mt-3">
+                            <a href="{{imageUrl}}{{images.carFrontImage}}" target="_blank"><img
+                                    src="{{imageUrl}}{{images.carFrontImage}}" width="250" height="200"
+                                    alt="No Image"></a>
+                                    <p class="text-center mt-1">Front Image</p>
+                            </div>  
+                        
+                        </ng-container>
+
+                        <ng-container *ngIf="images.carLeftImage">
+                            <div class="mt-3">
+                                <a href="{{imageUrl}}{{images.carLeftImage}}" target="_blank"><img
+                                        src="{{imageUrl}}{{images.carLeftImage}}" width="250" height="200"
+                                        alt="No Image"></a>
+                                        <p class="text-center mt-1">Left image</p>
+                                </div>  
+                            
+                            </ng-container>
+
+                            <ng-container *ngIf="images.carRightImage">
+                                <div class="mt-3">
+                                    <a href="{{imageUrl}}{{images.carRightImage}}" target="_blank"><img
+                                            src="{{imageUrl}}{{images.carRightImage}}" width="250" height="200"
+                                            alt="No Image"></a>
+                                            <p class="text-center mt-1">Right image</p>
+                                    </div>  
+                                
+                                </ng-container>
+
+                                <ng-container *ngIf="images.userImage">
+                                    <div class="mt-3">
+                                        <a href="{{imageUrl}}{{images.userImage}}" target="_blank"><img
+                                                src="{{imageUrl}}{{images.userImage}}" width="250" height="200"
+                                                alt="No Image"></a>
+                                              
+                                        </div>  
+                                    
+                                    </ng-container>
+                </div>
+                 <!-- <h5 *ngIf="!images.carLeftImage && !images.carBackImage && !images.carFrontImage" class="text-center">No any vehicle image found!</h5>                   -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Owner detail modal -->
+<div class="modal" id="ownerDetailModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Owner Detail</h5>
+            </div>
+            <div *ngIf="owner" class="modal-body">
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="firstName" maxlength="25" appCharacterOnly
+                                [(ngModel)]="owner.firstName" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="lastName" maxlength="25" appCharacterOnly
+                                [(ngModel)]="owner.lastName" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" maxlength="50"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [(ngModel)]="owner.email"
+                                class="form-control" readonly />
+                        </div>
+                    </div>
+                   
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Country Code</label>
+                            <input type="text" name="countryCode"  appNumberOnly
+                            [(ngModel)]="owner.countryCode" class="form-control" readonly />
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" name="phone" minlength="8" maxlength="15" appNumberOnly
+                                [(ngModel)]="owner.phone" class="form-control" readonly />
+                        </div>
+                    </div>
+                
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <input type="text" name="gender" 
+                            [(ngModel)]="owner.gender" class="form-control" readonly />
+                           
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                       <textarea  class="form-control" rows="3" [value]="owner.address" readonly></textarea>
+                        </div>
+                    </div>           
+                </div>             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

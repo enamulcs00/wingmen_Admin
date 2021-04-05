@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Drivers</h5>
+            <input *ngIf="driverList.length" type="text" class="mb-1 form-control" placeholder="Search Driver"
+                (keyup)="filterData($event.target.value, 'driver')">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <ng-container *ngFor="let i of driverList">
+                        <li *ngIf="isNotAdded(i._id, 'driver')" [ngClass]="isSelected(i._id, 'driver') ? 'active' : ''"
+                            class="cursor-pointer list-group-item" (click)="formObj(i, 'driver')">{{i.firstName}}
+                            {{i.lastName}}</li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h5>Co-Drivers</h5>
+            <input *ngIf="coDriverList.length" type="text" class="mb-1 form-control" placeholder="Search Co-Driver"
+                (keyup)="filterData($event.target.value, 'codriver')">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <ng-container *ngFor="let i of coDriverList">
+                        <li *ngIf="isNotAdded(i._id, 'codriver')"
+                            [ngClass]="isSelected(i._id, 'codriver') ? 'active' : ''"
+                            class="cursor-pointer list-group-item" (click)="formObj(i, 'codriver')">{{i.firstName}}
+                            {{i.lastName}}</li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5" *ngIf="pairedDrivers.length">
+        <div class="col-md-12">
+            <div class="row mb-2">
+                <div class="col-md-9">
+                    <h5>Paired Drivers</h5>
+                </div>
+                <div class="col-md-3">
+                    <button (click)="save()" class="float-right btn btn-primary">Save</button>
+                </div>
+            </div>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="cursor-pointer list-group-item" (click)="formObj(i, 'driver')"
+                        *ngFor="let i of pairedDrivers">
+                        <span>{{i.driver?.firstName}} {{i.driver?.lastName}}</span>
+                        <span class="mx-3"><i class="fa fa-long-arrow-alt-right"></i></span>
+                        <span>{{i.codriver?.firstName}} {{i.codriver?.lastName}}</span>
+                        <button (click)="remove(i.driver['_id'], 'driver')" class="float-right btn btn-link m-0 p-0">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

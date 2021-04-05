@@ -1,0 +1,138 @@
+<div class="container-fluid driver_page">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-10 filter_srch_from">
+                    <div class="filter_srch_item">
+                        <h6 class="m-0 font-weight-bold text-primary">DRIVER</h6>
+                    </div>
+                    <div class="filter_srch_item">
+                        <input type="text" class="form-control" name="search" [(ngModel)]="selectDriver"
+                            placeholder="Search Driver by Name,email" />
+                    </div>
+                    <div class="filter_srch_item">
+                        <button type="submit" class="btn btn-primary pl-4 pr-4" (click)="searchDriver()">
+                            Search
+                        </button>
+                        <button type="reset" class="btn btn-primary pl-4 pr-4 ml-2" (click)="reset()">
+                            Reset
+                        </button>
+                    </div>
+                    <div class="d-flex filter_srch_item">
+                        <select name="driverType" id="type" class="form-control" [(ngModel)]="driverType"
+                            (change)="getDriverType()">
+                            <option value="">All</option>
+                            <option value="Pilot">Pilot</option>
+                            <option value="Copilot">Co-Pilot</option>
+                        </select>
+                        <button class="btn btn-primary ml-2" routerLink="/wingmen/drivers/add-driver">
+                            <span class="fas fa-plus"></span> Add Driver
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button (click)="exportCsv()" class="btn btn-primary float-right">Export</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Driver Type</th>
+                            <th>Total Complete Booking</th>
+                            <th>Average Rating</th>
+                            <th>Driver Lisense</th>
+                            <th>Is Approved</th>
+                            <th>Booking History</th>
+                            <!-- <th>Active</th> -->
+                            <th>Is Blocked</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
+                    <tbody>
+                        <tr *ngFor="let item of driverList; let i = index">
+                            <td>{{ i + serialNumber + 1 }}</td>
+                            <td>
+                                <img [src]="item.image ? imageUrl + item.image : defaultImage"
+                                    style="width: 70px; height: 70px" alt="" />
+                            </td>
+                            <td>{{ item.firstName }}</td>
+                            <td>{{ item.lastName }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.countryCode }} {{ item.phone }}</td>
+                            <td>{{ item.gender }}</td>
+                            <td class="description">{{ item.address }}</td>
+                            <td *ngIf="item.isPilot">Pilot</td>
+                            <td *ngIf="item.isCopilot">Co-Pilot</td>
+                            <td *ngIf="!item.isPilot && !item.isCopilot">Process</td>
+                            <td>{{ item.totalCompletedBooking }}</td>
+                            <td>{{ item.avgRating }}</td>
+                            <td *ngIf="!item.driverLisence">No Lisence</td>
+                            <td *ngIf="item.driverLisence">
+                                <a type="btn" href="{{ imageUrl }}{{ item.driverLisence }}" target="_blank"><button
+                                        class="btn btn-primary">License</button>
+                                </a>
+                            </td>
+                            <!-- <td>
+                                <button *ngIf="!item.isVerified" class="btn btn-primary" (click)="verifyDriver(item)"
+                                    >Verify</button>
+                                <span *ngIf="item.isVerified" class="badge badge-info">Verified</span>
+                            </td> -->
+                            <td>
+                                <button *ngIf="!item.isApproved" class="btn btn-primary" (click)="approveDriver(item)">
+                                    Approve
+                                </button>
+                                <span *ngIf="item.isApproved" class="badge badge-info">Approved</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary"
+                                    routerLink="/wingmen/drivers/booking-history/{{ item._id }}">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </td>
+                            <!-- <td>
+                                <ui-switch labelOn="ON" switchColor="#4e73df" id="isActive" (click)="changeStatus(item)" 
+                                [(ngModel)]="item.activeStatus" name="isActive" labelOff="OFF"></ui-switch>
+                              </td> -->
+                            <td>
+                                <ui-switch labelOn="ON" switchColor="#4e73df" id="isActive" [(ngModel)]="item.isBlocked"
+                                    name="isActive" labelOff="OFF" (click)="blockDriver(item)"></ui-switch>
+                            </td>
+                            <td>
+                                <div class="product_action">
+                                    <button class="btn btn-primary mr-1"
+                                        routerLink="/wingmen/drivers/edit-driver/{{ item._id }}" title="Edit">
+                                        <span class="fas fa-fw fa-edit"></span>
+                                    </button>
+                                    <button class="btn btn-danger" (click)="deleteDriver(item._id)">
+                                        <span title="Delete" class="fas fa-fw fa-trash"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="!driverList?.length" class="text-center">
+                    No records found.
+                </h4>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+<!-- <app-vehicle-modal  [documents]="selectedDocument"></app-vehicle-modal>  -->

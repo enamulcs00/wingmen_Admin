@@ -1,0 +1,72 @@
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row filter_srch_from">
+                <div class="col-md-6">
+                    <h6 class="m-0 font-weight-bold text-primary">Coupon</h6>
+                </div>
+                <div class="col-md-6 text-right add_btn">
+                    <button class="btn btn-primary" routerLink="/wingmen/coupon/add-coupon">
+            <span class="fas fa-plus"></span> Add Coupon
+          </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Promo Code</th>
+                            <th>Minimum Booking Price</th>
+                            <th>Users Attempt</th>
+                            <th>No of Users</th>
+                            <th>Discount</th>
+                            <th>Created Date</th>
+                            <th>Expire Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
+                    <tbody>
+                        <tr *ngFor="let item of promoList; let i = index">
+                            <td>{{ i + serialNumber + 1 }}</td>
+                            <td>{{ item.promoCode }}</td>
+                            <td>{{ item.minimumBookingPrice }}</td>
+                            <td>{{ item.individualUserPromoAttempt }}</td>
+                            <td>{{ item.noOfPromoUsers }}</td>
+                            <td *ngIf="item.isCash">{{ item.cashback }} (Flat)</td>
+                            <td *ngIf="!item.isCash">{{ item.percentage }} (%)</td>
+
+                            <td>{{ item.createdAt | date: "yyyy-MM-dd" }}</td>
+                            <td>{{ item.expireDate | date: "yyyy-MM-dd" }}</td>
+                            <!-- <td>
+                                <ui-switch labelOn="ON" switchColor="#4e73df" id="isActive" [(ngModel)]="item.isBlocked" 
+                                   name="isActive" labelOff="OFF" (click)="blockDriver(item)"></ui-switch>
+                              </td> -->
+                            <td>
+                                <div class="product_action">
+                                    <button class="btn btn-primary mr-1" routerLink="/wingmen/coupon/edit-coupon/{{ item._id }}">
+                    <span class="fas fa-fw fa-edit"></span>
+                  </button>
+                                    <button class="btn btn-danger" (click)="deletePromo(item._id)">
+                    <span class="fas fa-fw fa-trash"></span>
+                  </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="!promoList?.length" class="text-center">
+                    No records found.
+                </h4>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="05" (pageChanged)="pageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
