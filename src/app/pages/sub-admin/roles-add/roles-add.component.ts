@@ -49,6 +49,9 @@ export class RolesAddComponent implements OnInit {
       { name: 'Broadcast', value: 'hasBroadcast' },
       { name: 'Subadmin', value: 'hasSubAdmin' },
       { name: 'Ranking', value: 'hasRanking' },
+      { name: 'User-List', value: 'hasUserList' },
+      { name: 'User-Add', value: 'hasUserAdd' },
+      { name: 'User-Edit', value: 'hasUserEdit' },
     ]
 
     this.form = this.fb.group({

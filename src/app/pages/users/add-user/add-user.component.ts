@@ -93,7 +93,7 @@ export class AddUserComponent implements OnInit {
       
       }
       this.successToast('User add successfully!')
-      this.router.navigateByUrl('/users')
+      this.router.navigate(['wingmen/users'])
 
     }, error => {
       this.flags.isAdded = false;

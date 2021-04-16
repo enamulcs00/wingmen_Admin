@@ -76,6 +76,12 @@ import { RolesListingComponent } from './sub-admin/roles-listing/roles-listing.c
 import { RolesAddComponent } from './sub-admin/roles-add/roles-add.component';
 import { RankingListingComponent } from './ranking/ranking-listing/ranking-listing.component';
 import { RankingAddComponent } from './ranking/ranking-add/ranking-add.component';
+import { SubAdminComponent } from './sub-admin/sub-admin.component';
+import { UserListComponent } from './additional-admin/user-list/user-list.component';
+import { UserAddComponent } from './additional-admin/user-add/user-add.component';
+import { UserEditComponent } from './additional-admin/user-edit/user-edit.component';
+import { UserViewComponent } from './additional-admin/user-view/user-view.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
     
 @NgModule({
@@ -129,7 +135,12 @@ import { RankingAddComponent } from './ranking/ranking-add/ranking-add.component
     RolesListingComponent,
     RolesAddComponent,
     RankingListingComponent,
-    RankingAddComponent
+    RankingAddComponent,
+    SubAdminComponent,
+    UserListComponent,
+    UserAddComponent,
+    UserEditComponent,
+    UserViewComponent
      
   ],
   imports: [
@@ -148,6 +159,8 @@ import { RankingAddComponent } from './ranking/ranking-add/ranking-add.component
     PdfViewerModule,
     AgmCoreModule,
     FusionChartsModule,
+    MatCheckboxModule,
+
     AngularMultiSelectModule,
     NgMultiSelectDropDownModule
   ],

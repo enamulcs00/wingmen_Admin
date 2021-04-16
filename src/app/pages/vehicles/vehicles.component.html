@@ -26,10 +26,10 @@
             <option value="user">Customer Vehicle</option>
           </select>
                 </div>
-                <!-- <div class="col-md-6 text-right">
-                    <button class="btn btn-primary" routerLink="wingmen/vehicles/add-vehicle" ><span
-                            class="fas fa-plus"></span> Add Vehicle</button>
-                </div> -->
+                <div class="text-right">
+                    <button class="btn btn-primary" routerLink="/wingmen/vehicles/add-vehicle"><span
+                    class="fas fa-plus"></span> Add Vehicle</button>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -99,8 +99,8 @@
                                     <button class="btn btn-primary mr-1" title="Edit" routerLink="/wingmen/vehicles/edit-vehicle/{{ item._id }}">
                     <span class="fas fa-fw fa-edit"></span>
                   </button>
-                                    <!-- <button (click)="deleteVehicle(item._id)" class="btn btn-danger" title="Delete"><span
-                                            class="fas fa-fw fa-trash"></span></button> -->
+                                    <button (click)="deleteVehicle(item._id)" class="btn btn-danger" title="Delete"><span
+                                            class="fas fa-fw fa-trash"></span></button>
                                 </div>
                             </td>
                         </tr>

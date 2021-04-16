@@ -15,9 +15,10 @@ import Swal from 'sweetalert2'
 export class SubAdminListingComponent implements OnInit {
   imageUrl=base;
   subadmins:any = [];
-  totalItems:any;
+  totalItems:number;
   availableDriver:any;
   bookingId:any;
+  
   loading: boolean = true;
   userDetail:any;
   driverDetail:any;
@@ -28,21 +29,24 @@ export class SubAdminListingComponent implements OnInit {
   filterBody=new BookingBody();
   selectBooking:any;
   bookingType='';
+  searchByName:string = ''
   stops=[];
   driverReview:any;
-
+page:number = 1;
+ItemPerPage:number=10;
   constructor(private api:ApiService,private toaster: ToastrManager) { }
 
   ngOnInit() {
-    this.filterBody.skip=0;
-    this.getAllSubadmins()
+    this.getCustomer()
+    
   }
 
   getAllSubadmins(){
+    this.loading = true
     this.api.getSubadmins(this.filterBody).subscribe((response:any)=>{
       this.subadmins = response.data;
       this.loading = false;
-      this.totalItems = response.count;
+    //  this.totalItems = response.count;
     })
   }
 
@@ -124,13 +128,11 @@ export class SubAdminListingComponent implements OnInit {
   }
 
   pageChange(pages){
-    // this.currentPage=pages.page;
-    const currentPage=pages.page
-    this.filterBody.skip=currentPage*10-10;
-    this.filterBody.limit=10;
+    console.log(pages)
+    this.page = pages.page
     this.loading = true
     this.getAllSubadmins();
-    this.serialNumber=currentPage*10-10;
+    this.getCustomer()
   }
 
   acceptBooking(item){
@@ -144,38 +146,50 @@ export class SubAdminListingComponent implements OnInit {
     });
   }
 
-  delete(id) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this sub-admin',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085D6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes',
-      allowOutsideClick: false,
-    }).then((result) => {
-      // if (result.value) {
-      //   const data = {
-      //     isDeleted: true,
-      //     _id: id
-      //   }
-      //   this.api.verifyBlockUnBlockDeltedUser(data).subscribe((res: any) => {
-      //     if (!res.success) return;
-      //     Swal.fire({
-      //       title: 'Deleted!',
-      //       text: 'Poof! Your Vehicle Type has been deleted!',
-      //       icon: 'success'
-      //     })
-      //     this.getallUser();
-      //   })
-      // }
+  // delete(id) {
+  //   let url = `admin/deletesubAdmin/6076bc9337d7072ea8f9d79b`
+  //   this.api.delByPost(url,'').subscribe((res:any)=>{
 
-    })
+  //   })
+  // }
+  delete(id){
+  console.log('Id',id)
+  let url = `admin/deletesubAdmin/${id}`
+this.api.delByPost(url,'').subscribe((res:any)=>{
+  console.log('Delete called',res)
+  if (res.status==true) {
+    
+  //  this.getCustomer()
+    Swal.fire('',res.message,'success')
+    console.log('success called',res)
+    this.getCustomer()
+  } else {
+    Swal.fire('',res.message,'error')
   }
-
+ }, error => {
+  Swal.fire('','Something went wrong','error')
+  
+ })
+}
   errorToast(message) {
     this.toaster.errorToastr(message);
   }
+
+getCustomer(){
+  this.loading = true
+  let obj ={
+    "search":this.searchByName
+}
+  //?search=${this.searchByName?this.searchByName:''}
+  let url = `admin/getallsubAdmin?page=${this.page}&count=${this.ItemPerPage}` 
+  this.api.getByPost(url,obj).subscribe((res:any)=>{
+   this.subadmins = res.data
+   this.totalItems =  res.total
+   this.loading = false
+  }, error => {
+   this.toaster.errorToastr(error.error.message);
+   
+  })
+}
 
 }

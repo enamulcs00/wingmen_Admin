@@ -45,6 +45,7 @@ export class EditVehicleComponent implements OnInit {
       this.rightImage=this.imageUrl + this.body.carRightImage;
       this.frontImage=this.imageUrl + this.body.carFrontImage;
       this.backImage=this.imageUrl + this.body.carBackImage;
+      console.log("particular ve",response)
     });
   }
 
@@ -200,6 +201,7 @@ getCertificate(event){
     if(!response.success) return this.errorToast(response.message)
     this.successToast(response.message);
     this.getParticularVehicle();
+    this.router.navigate(['wingmen/vehicles'])
 })
   }
 
@@ -212,6 +214,4 @@ getCertificate(event){
   errorToast(message) {
     this.toaster.errorToastr(message);
   }
-
-
 }

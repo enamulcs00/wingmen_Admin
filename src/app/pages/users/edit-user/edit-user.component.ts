@@ -113,7 +113,7 @@ export class EditUserComponent implements OnInit {
       }
       this.formData=new FormData();
       this.successToast('User updated successfully!')
-
+this.router.navigate(['wingmen/users'])
     }, error => {
       this.flags.isUpdate = false;
     });

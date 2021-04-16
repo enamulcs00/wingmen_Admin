@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-3">
                     <a routerLink="/wingmen/sub-admin/add" class="btn ml-1 btn-primary float-right">Add</a>
-                    <a routerLink="/wingmen/roles" class=" btn btn-primary float-right">Roles</a>
+                    <!-- <a routerLink="/wingmen/roles" class=" btn btn-primary float-right">Roles</a> -->
                 </div>
             </div>
         </div>
@@ -19,25 +19,34 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Role</th>
+                            <th>Email</th>
+                            <!-- <th>Access</th> -->
                             <th>Action</th>
                         </tr>
                     </thead>
+                    <div class="progress-loader" [hidden]="!loading">
+                        <mat-progress-spinner class="spinner" [color]="color" mode="indeterminate">
+                        </mat-progress-spinner>
+                    </div>
                     <tbody>
                         <tr *ngFor="let item of subadmins">
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.role }}</td>
+                            <td>{{ item?.name }}</td>
+                            <td>{{ item?.email }}</td>
+                            <!-- <td>{{ item?.role }}</td> -->
                             <td>
-                                <div class="product_action">
-                                    <button routerLink="/wingmen/sub-admin/add/{{item._id}}" class="btn btn-primary">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
+                                <div class="row">
+                                    <div class="product_action">
+                                        <button routerLink="/wingmen/sub-admin/add/{{item._id}}" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div> &nbsp;&nbsp;
+                                    <div class="product_action">
+                                        <button (click)="delete(item?._id)" class="btn btn-primary">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="product_action">
-                                    <button (click)="delete(list._id)" class="btn btn-primary">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
+                               
                             </td>
                         </tr>
                         <tr *ngIf="!subadmins.length">

@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit {
     { path: '/wingmen/setting', title: 'Setting', icon: 'assets/img/setting.png', class: '', key: 'has' },
     { path: '/wingmen/contact-us', title: 'Contact Us', icon: 'assets/img/contactus.png', class: '', key: 'hasSetting' },
     { path: '/wingmen/broadcast', title: 'Broadcast', icon: 'assets/img/notification.png', class: '', key: 'hasBroadcast' },
+    { path: '/wingmen/user-list', title: 'User-list', icon: 'assets/img/subadmin.png', class: '', key: 'hasUserList'},
 
   ];
 

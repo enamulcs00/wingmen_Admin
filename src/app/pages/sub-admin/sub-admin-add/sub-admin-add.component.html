@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form [formGroup]="form" (ngSubmit)="save()">
+    <form [formGroup]="form" (ngSubmit)="SubmitData()">
         <div class="row">
             <div class="col-md-12">
                 <h4>{{ id ? 'Edit' : 'Add' }} Subadmin</h4>
@@ -8,34 +8,65 @@
                 <div class="form-group">
                     <label class="d-block">Name</label>
                     <input type="text" class="form-control" formControlName="name">
-                    <p class="errors" *ngIf="isSubmitted && form.get('name').hasError('required')">This field is required</p>
+                    <p class="errors" *ngIf="isSubmitted && form.get('name').hasError('required')" class="text-danger">This field is required</p>
+                    <p class="errors" *ngIf="form.get('name').hasError('pattern')" class="text-danger">Please enter alphabets only</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <label class="d-block">Email</label>
                 <input type="text" formControlName="email" class="form-control"> 
-                <p class="errors" *ngIf="isSubmitted && form.get('email').hasError('email')">Please enter a valid email</p>
-                <p class="errors" *ngIf="isSubmitted && form.get('email').hasError('required')">This field is required</p>
+                <p class="errors" *ngIf="form.get('email').hasError('pattern')" class="text-danger">Please enter a valid email</p>
+                <p class="errors" *ngIf="isSubmitted && form.get('email').hasError('required')" class="text-danger">This field is required</p>
             </div>
             <div class="col-md-6">
-                <label class="d-block">Role</label>
-                <select class="form-control" formControlName="role">
-                    <option *ngFor="let role of roles" [value]="role._id">{{ role.name }}</option>
-                </select>
-                <p class="errors" *ngIf="isSubmitted && form.get('minRides').hasError('required')">This field is required</p>
+                <div class="form-group">
+                    <label class="d-block">Phone</label>
+                    <input type="text" class="form-control" formControlName="phone">
+                    <p class="errors" *ngIf="isSubmitted && form.get('phone').hasError('required')" class="text-danger">This field is required</p>
+                    <p class="errors" *ngIf="form.get('phone').hasError('pattern')" class="text-danger">Please enter valid phone number</p>
+                    <p class="errors" *ngIf="form.get('phone').hasError('minlength')" class="text-danger"> Minimum length of phone number should 7.</p>
+                    <p class="errors" *ngIf="form.get('phone').hasError('maxlength')" class="text-danger"> Maximum length of phone number should 15.</p>
+                </div>
             </div>
             <div class="col-md-6">
+                <label class="d-block">Address</label>
+                <input type="text" formControlName="address" class="form-control"> 
+                
+                <p class="errors" *ngIf="isSubmitted && form.get('address').hasError('required')" class="text-danger">This field is required</p>
+            </div>
+            <div class="col-md-12">
                 <div class="form-group">
                     <label class="d-block">Profile Image</label>
                     <input class="form-control" type="file" (change)="onImageSelect($event)" id="badge" accept=".png, .jpg, .jpeg">
                     <div *ngIf="image">
                         <img src="{{image}}" width="100px" height="100px">
                     </div>
-                <p class="errors" *ngIf="isSubmitted && form.get('image').hasError('required')">This field is required</p>
+                <p class="errors" *ngIf="isSubmitted && form.get('image').hasError('required')" class="text-danger">This field is required</p>
                 </div>
+            </div>
+            <label class="control-label">Access</label>
+             <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="inlineCheckbox1">Read</label>&nbsp;&nbsp;
+                    <input class="form-check-input" formControlName="read" type="checkbox" id="inlineCheckbox1" value="option1">
+                    
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="inlineCheckbox1">Write</label>&nbsp;&nbsp;
+                    <input class="form-check-input" formControlName="write" type="checkbox" id="inlineCheckbox2" value="option2">
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="inlineCheckbox3">Edit</label>&nbsp;&nbsp;
+                    <input class="form-check-input" formControlName="edit" type="checkbox" id="inlineCheckbox3" value="option3">
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="inlineCheckbox3">Delete</label>&nbsp;&nbsp;
+                    <input class="form-check-input" formControlName="delete" type="checkbox" id="inlineCheckbox3" value="option3">
+                  </div>
             </div>
             <div class="col-md-12 mt-2">
                 <button class="btn btn-primary" role="form" type="submit">{{ id ? 'Update' : 'Add'}}</button>
+            
             </div>
         </div>
     </form>

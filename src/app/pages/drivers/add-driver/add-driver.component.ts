@@ -61,7 +61,7 @@ export class AddDriverComponent implements OnInit {
         return this.errorToast(response.message);
       } else {
         this.successToast('Driver added successfully!');
-        this.router.navigateByUrl('/drivers');
+        this.router.navigateByUrl('wingmen/drivers');
       }
     }, error => {
       this.formData = new FormData();

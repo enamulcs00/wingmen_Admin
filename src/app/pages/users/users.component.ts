@@ -6,6 +6,8 @@ import { FilterBody } from 'src/app/requests/filter-body';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { DeleteBody } from 'src/app/requests/delete-body';
 import Swal from 'sweetalert2'
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-users',
@@ -24,7 +26,7 @@ export class UsersComponent implements OnInit {
   filterBody = new FilterBody();
   deleteBody = new DeleteBody();
 
-  constructor(private api: ApiService, private toaster: ToastrManager) { }
+  constructor(private api: ApiService, private toaster: ToastrManager,private spinner:NgxSpinnerService) { }
 
   ngOnInit() {
     this.filterBody.skip = 0;
@@ -32,11 +34,14 @@ export class UsersComponent implements OnInit {
   }
 
   getallUser() {
+    this.spinner.show()
     this.api.getAllUsers(this.filterBody).subscribe((response: any) => {
       this.userList = response.data;
       this.loading = false;
       this.totalItems = response.count;
+      this.spinner.hide()
     })
+    this.spinner.hide()
   }
 
 
@@ -70,12 +75,14 @@ export class UsersComponent implements OnInit {
   }
 
   searchUser() {
+    this.loading = true
     this.filterBody.search = this.selectUser.trim();
     this.filterBody.skip = 0;
     this.getallUser();
   }
 
   reset() {
+    this.loading = true
     this.selectUser = '';
     this.filterBody.search = undefined;
     this.filterBody.skip = 0;
@@ -83,6 +90,7 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id) {
+    
     Swal.fire({
       title: 'Are you sure?',
       text: 'Once deleted, you will not be able to recover this User!',
@@ -114,12 +122,13 @@ export class UsersComponent implements OnInit {
 
 
   pageChange(pages) {
-    // this.currentPage=pages.page;
+    this.loading = true
     const currentPage = pages.page
     this.filterBody.skip = currentPage * 10 - 10;
     this.filterBody.limit = 10;
     this.getallUser();
     this.serialNumber = currentPage * 10 - 10;
+    
   }
 
   successToast(message) {

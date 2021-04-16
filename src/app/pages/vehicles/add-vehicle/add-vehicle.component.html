@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6 class="m-0 font-weight-bold text-primary">EDIT VEHICLE</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">ADD VEHICLE</h6>
                         </div>
                         <div class="col-md-6 text-right">
                             <button class="btn btn-primary" (click)="history.back()"><span
@@ -16,8 +16,9 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="body" class="card-body">
-            <form #vehicleForm="ngForm">
+       
+        <div class="card-body">   <!-- *ngIf="body" -->
+            <form [formGroup]= "vehicleForm">
 
                 <div class="form-group">
                     <label>Image</label><br>
@@ -46,9 +47,6 @@
                                 class="form-control" required />
                         </div>                    
                     </div>
-
-                    
-
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Plate Number</label>
@@ -58,9 +56,7 @@
                     </div>
 
                     <div class="col-md-6"></div>
-
-                   
-                    <div class="col-md-3">
+                     <div class="col-md-3">
                         <div class="form-group" style="text-align:center">
                              <label class="file">
                                 <button class="btn btn-primary" onclick="document.getElementById('getIns').click()">Choose Insurance</button>
@@ -123,9 +119,6 @@
                         </div>                    
                     </div>
                     <div class="col-md-9"></div>
-
-                
-
                  <div class="col-md-3">
                     <div class="form-group" style="text-align:center">
                         <label class="file">
@@ -182,7 +175,7 @@
                 </div>   
                 <div class="row mt-2">
                     <div class="col-md-12">
-                        <button class="btn btn-primary" [disabled]="!vehicleForm.valid"
+                        <button class="btn btn-primary"
                             (click)="updateVehicle()">
                             <span class="fas fa-save"></span>
                             {{flags.isAdded?'Saving...':'Save'}}

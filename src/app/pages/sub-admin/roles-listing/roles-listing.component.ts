@@ -39,6 +39,7 @@ export class RolesListingComponent implements OnInit {
 
   getAllRoles(){
     this.api.getRoles(this.filterBody).subscribe((response:any)=>{
+      console.log("this is role")
       this.roles = response.data;
       this.loading = false;
       this.totalItems = response.count;

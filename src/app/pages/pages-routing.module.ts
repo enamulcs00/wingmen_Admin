@@ -35,6 +35,9 @@ import { RankingListingComponent } from './ranking/ranking-listing/ranking-listi
 import { RankingAddComponent } from './ranking/ranking-add/ranking-add.component';
 import { RolesListingComponent } from './sub-admin/roles-listing/roles-listing.component';
 import { RolesAddComponent } from './sub-admin/roles-add/roles-add.component';
+import { UserListComponent } from './additional-admin/user-list/user-list.component';
+import { UserAddComponent } from './additional-admin/user-add/user-add.component';
+import { UserEditComponent } from './additional-admin/user-edit/user-edit.component';
 
 
 
@@ -71,13 +74,16 @@ const routes: Routes = [
       {path:'broadcast', component:BroadcastComponent, data: { key: 'hasBroadcast' } },
       {path:'sub-admin', component: SubAdminListingComponent, data: { key: 'hasSubAdmin' } },
       {path:'sub-admin/add', component: SubAdminAddComponent, data: { key: 'hasSubAdmin' } },
-      {path:'sub-admin/add/:id', component: SubAdminAddComponent, data: { key: 'hasSubAdmin' } },
+      {path:'sub-admin/add/:id', component: SubAdminAddComponent, data: { key: 'hasSubAdmin' }},
       {path:'roles', component: RolesListingComponent, data: { key: 'hasSubAdmin' } },
       {path:'roles/add', component: RolesAddComponent, data: { key: 'hasSubAdmin' } },
       {path:'roles/add/:id', component: RolesAddComponent, data: { key: 'hasSubAdmin' } },
       {path:'ranking', component: RankingListingComponent, data: { key: 'hasRanking' } },
       {path:'ranking/add', component: RankingAddComponent, data: { key: 'hasRanking' } },
       {path:'ranking/add/:id', component: RankingAddComponent, data: { key: 'hasRanking' } },
+      {path:'user-list', component: UserListComponent, data: { key: 'hasUserList' } },
+      {path:'user-add', component: UserAddComponent, data: { key: 'hasUserAdd' } },
+      {path:'user-edit/:id', component: UserEditComponent, data: { key: 'hasUserEdit' } },
     ]
   }
 ];

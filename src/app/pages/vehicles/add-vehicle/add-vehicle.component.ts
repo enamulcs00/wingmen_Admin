@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api.service';
 import base from 'src/app/services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -16,6 +17,7 @@ export class AddVehicleComponent implements OnInit {
   defaultImage='assets/img/defaultvehicle'
   src:any;
   body:any;
+  vehicleForm:FormGroup
   leftImage:any;
   rightImage:any;
   frontImage:any;
@@ -24,9 +26,23 @@ export class AddVehicleComponent implements OnInit {
   flags={
     isAdded:false  
   }
-  constructor(private api: ApiService, private router: Router, private toaster: ToastrManager, private activatedRoute: ActivatedRoute) { }
+  constructor(private api: ApiService, private router: Router, private toaster: ToastrManager, private activatedRoute: ActivatedRoute,private fb:FormBuilder) { }
 
   ngOnInit() {
+    this.vehicleForm = this.fb.group({
+      "vehicleName":['',Validators.required],
+      "vehicleMake":  ['',Validators.required],
+      "vehicleModel":  ['',Validators.required],
+      "vehicleTypeId":  ['',Validators.required],
+      "vehicleImage":['',Validators.required],
+      "insuranceDocuments":['',Validators.required],
+      "transmissionTypeId":['',Validators.required],
+      "color":['',Validators.required],
+      "plateNumber":['',Validators.required],
+      "state":['',Validators.required],
+      isHybrid: [false],
+      isElectric: [false],
+    })
   }
 
   getInsuance(event){
@@ -93,7 +109,6 @@ getCertificate(event){
       this.errorToast('Selected file is not image.');
     }
   }
-
   leftImageSelect(e) {
     const file = e.target.files[0];
     if (file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg') {

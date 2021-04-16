@@ -81,15 +81,12 @@ export class ApiService {
   }
 
   verifyBlockUnBlockDeltedUser(body) {
-    return this.http.post(`${this.baseUrl}/api/v1/admin/verifyBlockUnBlockDeltedUser`, body)
+    return this.http.post(`${this.baseUrl}/api/v1/admin/verifyBlockUnBlockDeleteUser`, body)
   }
-
-
   //Vehicle Type api
   getallVehicleType() {
     return this.http.get(`${this.baseUrl}/api/v1/admin/getVehicleType`)
   }
-
   addVehicleType(data) {
     return this.http.post(`${this.baseUrl}/api/v1/admin/addVehicleType`, data)
   }
@@ -312,15 +309,28 @@ export class ApiService {
   getSubadmins(body) {
     return this.http.post(`${this.baseUrl}/api/v1/admin/getSubadmins`, body);
   }
-
+  getByPost(url,body) {
+    return this.http.post(`${this.baseUrl}/api/v1/${url}`, body);
+  }
+  delByPost(url,body) {
+    return this.http.post(`${this.baseUrl}/api/v1/${url}`, body);
+  }
   updateSubAdmin(body) {
     return this.http.post(`${this.baseUrl}/api/v1/admin/updateSubadmin`, body);
+  }
+  AddSubAdmin(body) {
+    return this.http.post(`${this.baseUrl}/api/v1/admin/addsubAdmin`, body);
   }
 
   getSubadminById(body) {
     return this.http.post(`${this.baseUrl}/api/v1/admin/getSubadminById`, body);
   }
-
+  putApi(url,data) {
+    return this.http.put(`${this.baseUrl}/api/v1/${url}`,data);
+  }
+  getApi(url) {
+    return this.http.get(`${this.baseUrl}/api/v1/${url}`);
+  }
 
   /***** ROLES/CAPABILITIES *****/
   getRoles(body) {
@@ -334,4 +344,5 @@ export class ApiService {
   getRoleById(body) {
     return this.http.post(`${this.baseUrl}/api/v1/admin/getRoleById`, body);
   }
+
 }
