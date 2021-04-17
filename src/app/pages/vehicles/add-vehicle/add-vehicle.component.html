@@ -19,44 +19,163 @@
        
         <div class="card-body">   <!-- *ngIf="body" -->
             <form [formGroup]= "vehicleForm">
-
-                <div class="form-group">
-                    <label>Image</label><br>
-                    <label class="file">
-                        <input type="file" (change)="onImageSelect($event)" id="userfile"
-                            accept=".png, .jpg, .jpeg">
-                    </label>
-                    <div *ngIf="src" class="mt-2"> 
-                        <img [src]="src?src:defaultImage" width="100px" height="100px">
-                    </div>
-                </div>
-
+<div class="row">
+<div class="col-md-6">
+    <div class="form-group">
+        <label>Image</label><br>
+        <label class="file">
+            <input type="file" (change)="onImageSelect($event)" id="userfile"
+                accept=".png, .jpg, .jpeg" name="vehicleImage">
+        </label>
+        <div *ngIf="src" class="mt-2"> 
+            <img [src]="src" width="100px" height="100px">
+        </div>
+        <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['vehicleImage'].errors?.required">
+            This field is required</p>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label>Insurance Documents</label><br>
+        <label class="file">
+            <input type="file" (change)="onInsuranceSelect($event)" id="userfile"
+                accept=".png, .jpg, .jpeg" name="insuranceDocuments">
+        </label>
+        <div *ngIf="src" class="mt-2"> 
+            <img [src]="insurance" width="100px" height="100px">
+        </div>
+        <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['insuranceDocuments'].errors?.required">
+            This field is required</p>
+    </div>
+</div>
+</div>
+               
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Vehical Registration</label><br>
+            <label class="file">
+                <input type="file" (change)="onRegistrationSelect($event)" id="userfile"
+                    accept=".png, .jpg, .jpeg" name="vehicalRegistration">
+            </label>
+            <div *ngIf="src" class="mt-2"> 
+                <img [src]="registration" width="100px" height="100px">
+            </div>
+            <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['vehicalRegistration'].errors?.required">
+                This field is required</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Driving Certificate</label><br>
+            <label class="file">
+                <input type="file" (change)="ondrivingLicense($event)" id="userfile"
+                    accept=".png, .jpg, .jpeg" name="drivingCertificate">
+            </label>
+            <div *ngIf="src" class="mt-2"> 
+                <img [src]="driving" width="100px" height="100px">
+            </div>
+            <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['drivingCertificate'].errors?.required">
+                This field is required</p>
+        </div>
+    </div>
+    </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Vehicle Name</label>
-                            <input type="text" name="vehicleName" [(ngModel)]="body.vehicleName" maxlength="50"
-                                class="form-control" required />
-                        </div>                    
+                            <input type="text" formControlName="vehicleName"  maxlength="50"
+                                class="form-control" (keydown.space)="$event.preventDefault()">
+                                <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['vehicleName'].errors?.required">
+                                    This field is required</p>
+                            </div>                    
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Vehicle Model</label>
-                            <input type="text" name="vehicleModel" [(ngModel)]="body.vehicleModel" maxlength="50"
-                                class="form-control" required />
+                            <input type="text" formControlName="vehicleModel"  maxlength="50"
+                                class="form-control" (keydown.space)="$event.preventDefault()">
+                                <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['vehicleModel'].errors?.required">
+                                    This field is required</p>
+                            </div>                    
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Vehicle Type</label>
+                            
+                                <select class="form-control" id="exampleFormControlSelect1" formControlName="vehicleTypeId">
+                                    <option value="" selected>Vehicle Type</option>
+                                    <option [value]="item?._id" *ngFor="let item of vehicleTypeList">{{item?.vehicleTypeName}}</option>
+                                    
+                                  </select>
+                                  <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['vehicleTypeId'].errors?.required">
+                                    This field is required</p>
                         </div>                    
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Transmission Type</label>
+        
+                                <select class="form-control" id="exampleFormControlSelect1" formControlName="transmissionTypeId">
+                                    <option value="" selected>Transmission Type</option>
+                                    <option [value]="item?._id" *ngFor="let item of getTransmissionType">{{item?.transmissionTypeName}}</option>
+                                    
+                                  </select>
+                                  <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['transmissionTypeId'].errors?.required">
+                                    This field is required</p>
+                            </div>                    
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Color</label>
+                            <input type="text" formControlName="color" (keydown.space)="$event.preventDefault()" maxlength="50"
+                                class="form-control">
+                                <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['color'].errors?.required">
+                                    This field is required</p>
+                            </div>                    
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" formControlName="state" (keydown.space)="$event.preventDefault()" maxlength="50"
+                                class="form-control">
+                                <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['state'].errors?.required">
+                                    This field is required</p>
+                        </div>                    
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="inlineCheckbox1">Is Hybrid</label>&nbsp;&nbsp;
+                            <input class="form-check-input" (keydown.space)="$event.preventDefault()" formControlName="isHybrid" type="checkbox" id="inlineCheckbox1" value="option1">
+                            
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="inlineCheckbox1">Is Electric</label>&nbsp;&nbsp;
+                            <input class="form-check-input" formControlName="isElectric" type="checkbox" id="inlineCheckbox2" value="option2">
+                          </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Plate Number</label>
-                            <input type="text" name="plateNumber" [(ngModel)]="body.plateNumber" maxlength="50"
-                                class="form-control" required />
+                            <input type="text" formControlName="plateNumber" maxlength="50" (keydown.space)="$event.preventDefault()"
+                                class="form-control">
+                                <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['plateNumber'].errors?.required">
+                                    This field is required</p>
+                            </div>                    
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Vehicle make</label>
+                            <input type="text" formControlName="vehicleMake" maxlength="50" (keydown.space)="$event.preventDefault()"
+                                class="form-control">
+                                <p class="text-danger" *ngIf="isSubmitted && vehicleForm.controls['vehicleMake'].errors?.required">
+                                    This field is required</p>
                         </div>                    
                     </div>
-
-                    <div class="col-md-6"></div>
-                     <div class="col-md-3">
+                     <!-- <div class="col-md-3">
                         <div class="form-group" style="text-align:center">
                              <label class="file">
                                 <button class="btn btn-primary" onclick="document.getElementById('getIns').click()">Choose Insurance</button>
@@ -64,8 +183,7 @@
                                 "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                 text/plain, application/pdf, image/*">                    
                             </label><br>
-                             <a *ngIf="body.insuranceDocuments" href="{{url+body.insuranceDocuments}}" target="_blank">Insurance Document</a>
-                             <p *ngIf="!body.insuranceDocuments">No Insurance Document</p>
+                
                         </div>                    
                     </div>
 
@@ -76,9 +194,8 @@
                                 <input type="file" id="permit" style="display:none" name="foo" (change)="getPermit($event)" accept=
                                 "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                 text/plain, application/pdf, image/*">                    
-                            </label><br>
-                             <a *ngIf="body.taxiPermit" href="{{url+body.taxiPermit}}" target="_blank">Taxi Permit</a>
-                             <p *ngIf="!body.taxiPermit">No Taxi Permit</p>
+                            </label>
+                             
                         </div>                    
                     </div>
                    <div class="col-md-3">
@@ -89,8 +206,7 @@
                                 "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                 text/plain, application/pdf, image/*">                    
                             </label><br>
-                             <a *ngIf="body.license" href="{{url+body.license}}" target="_blank">License</a>
-                             <p *ngIf="!body.license">No License</p>
+                             
                         </div>                    
                     </div>
                     <div class="col-md-3">
@@ -101,8 +217,7 @@
                                 "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                 text/plain, application/pdf, image/*">                    
                             </label><br>
-                             <a *ngIf="body.vehicleRegitration" href="{{url+body.vehicleRegitration}}" target="_blank">Vehicle Registration</a>
-                             <p *ngIf="!body.vehicleRegitration">No Vehicle Registration</p>
+                             
                         </div>                    
                     </div>
                     
@@ -114,19 +229,18 @@
                                 "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                 text/plain, application/pdf, image/*">                    
                             </label><br>
-                             <a *ngIf="body.drivingCertificate" href="{{url+body.drivingCertificate}}" target="_blank">Driver Certificate</a>
-                             <p *ngIf="!body.drivingCertificate">No Driver Certificate</p>
+                           
                         </div>                    
-                    </div>
-                    <div class="col-md-9"></div>
+                    </div> -->
+                    <!-- <div class="col-md-9"></div> -->
                  <div class="col-md-3">
                     <div class="form-group" style="text-align:center">
                         <label class="file">
-                            <input type="file" class="choosefile" (change)="leftImageSelect($event)" id="userfile"
+                            <input type="file" name="carLeftImage" class="choosefile" (change)="leftImageSelect($event)" id="userfile"
                                 accept=".png, .jpg, .jpeg">
                         </label>
                         <div *ngIf="src" class="mt-2"> 
-                            <img [src]="body.carLeftImage?leftImage:defaultImage" width="100px" height="100px">
+                            <img [src]="leftImage" width="100px" height="100px">
                         </div>
                         <label>Left Image</label> 
                     </div>
@@ -136,11 +250,11 @@
                     <div class="form-group" style="text-align:center">
                       
                         <label class="file">
-                            <input type="file" class="choosefile" (change)="rightImageSelect($event)" id="userfile"
+                            <input type="file" class="choosefile" name="carRightImage" (change)="rightImageSelect($event)" id="userfile"
                                 accept=".png, .jpg, .jpeg">
                         </label>
                         <div *ngIf="src" class="mt-2"> 
-                            <img [src]="body.carRightImage?rightImage:defaultImage" width="100px" height="100px">
+                            <img [src]="rightImage" width="100px" height="100px">
                         </div>
                         <label>Right Image</label><br>
                     </div>
@@ -149,24 +263,25 @@
                  <div class="col-md-3" style="text-align:center">
                     <div class="form-group">
                         <label class="file">
-                            <input type="file" class="choosefile" (change)="frontImageSelect($event)" id="userfile"
+                            <input type="file" class="choosefile" name="carFrontImage" (change)="frontImageSelect($event)" id="userfile"
                                 accept=".png, .jpg, .jpeg">
                         </label>
                         <div *ngIf="src" class="mt-2"> 
-                            <img [src]="body.carFrontImage?frontImage:defaultImage" width="100px" height="100px">
+                            <img [src]="frontImage" width="100px" height="100px">
                         </div>
                         <label>Front Image</label><br>
+                        
                     </div>
                  </div>
 
                  <div class="col-md-3" style="text-align:center">
                      <div class="form-group">
                         <label class="file">
-                            <input type="file" class="choosefile" (change)="backImageSelect($event)" id="userfile"
+                            <input type="file" class="choosefile" name="carBackImage" (change)="backImageSelect($event)" id="userfile"
                                 accept=".png, .jpg, .jpeg">
                         </label>
                         <div *ngIf="src" class="mt-2"> 
-                            <img [src]="body.carBackImage?backImage:defaultImage" width="100px" height="100px">
+                            <img [src]="backImage" width="100px" height="100px">
                         </div>
                         <label>Back Image</label><br>
                     </div>
@@ -176,7 +291,7 @@
                 <div class="row mt-2">
                     <div class="col-md-12">
                         <button class="btn btn-primary"
-                            (click)="updateVehicle()">
+                            (click)="addVehicle()">
                             <span class="fas fa-save"></span>
                             {{flags.isAdded?'Saving...':'Save'}}
                         </button>

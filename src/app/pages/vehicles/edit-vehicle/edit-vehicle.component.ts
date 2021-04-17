@@ -45,7 +45,11 @@ export class EditVehicleComponent implements OnInit {
       this.rightImage=this.imageUrl + this.body.carRightImage;
       this.frontImage=this.imageUrl + this.body.carFrontImage;
       this.backImage=this.imageUrl + this.body.carBackImage;
-      console.log("particular ve",response)
+      console.log("particular vehicle",response)
+console.log('left',this.leftImage);
+console.log('Right',this.rightImage);
+console.log('front',this.frontImage);
+console.log('Back',this.backImage);
     });
   }
 

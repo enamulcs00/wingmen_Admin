@@ -12,9 +12,9 @@ import base, { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./sub-admin-add.component.scss']
 })
 export class SubAdminAddComponent implements OnInit {
-  imageUrl = "https://app.mywngmn.com";
+  imageUrl = "https://app.mywngmn.com/";
   isSubmitted: Boolean = false
-  image: any = ''
+  image: any;
   defaultImage = "assets/img/defaultuser.jpg";
   form: FormGroup
   formData = new FormData()
@@ -44,7 +44,7 @@ export class SubAdminAddComponent implements OnInit {
       phone: ['', [Validators.required,Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
       ,Validators.maxLength(15),Validators.minLength(7)]],
       address: ['', [Validators.required]],
-      image: [''],
+      image: ['',Validators.required],
       email: ['', [Validators.required, Validators.email,,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
       read: [false],
       write: [false],
@@ -62,10 +62,7 @@ export class SubAdminAddComponent implements OnInit {
     let url = `admin/getEditsubAdmin/${this.id}`
     this.service.getApi(url).subscribe((response:any) => {
       console.log(response,'Edit  sub',response['data'].access);
-
       this.form.get('image').setValue(response.data.subAdminImage)
-      this.image  = response.data.subAdminImage
-      console.log('Imgwhedwkew',this.image)
       this.form.patchValue({
         name: response['data'].name,
         image: response['data'].subAdminImage,
@@ -77,14 +74,16 @@ export class SubAdminAddComponent implements OnInit {
         edit: response['data'].access.edit,
         delete: response['data'].access.delete
       })
-      this.image = response['badge']
+      this.image  = this.imageUrl + response.data.subAdminImage
+      
+      
     }, error => {
       this.toaster.errorToastr(error['message'])
     })
   }
 
   save() {
-    let access = {"read":this.form.value.read,"write":this.form.value.write,"edit":this.form.value.edit,"delete":this.form.value.delete}
+    let access = {"read":this.form.controls['read'].value,"write":this.form.controls['write'].value,"edit":this.form.controls['edit'].value,"delete":this.form.controls['delete'].value}
     let url = `admin/editsubAdmin/${this.id}`
     this.isSubmitted = true
     if(this.form.invalid){
@@ -124,6 +123,7 @@ export class SubAdminAddComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.image = event.target.result;
+        
       };
       reader.readAsDataURL(e.target.files[0]);
       this.formData.append('subAdminImage', file);     
@@ -138,7 +138,8 @@ addSub(){
   //   subAdminImage: this.form.value.image,
   //   email: this.form.value.email,
   // }
-  let access = {"read":this.form.value.read,"write":this.form.value.write,"edit":this.form.value.edit,"delete":this.form.value.delete}
+  // let access = {"read":this.form.value.read,"write":this.form.value.write,"edit":this.form.value.edit,"delete":this.form.value.delete}
+  let access = {"read":this.form.controls['read'].value,"write":this.form.controls['write'].value,"edit":this.form.controls['edit'].value,"delete":this.form.controls['delete'].value}
   let obj = new FormData()
   obj.append('subAdminImage', this.form.value.image);
   obj.append('name', this.form.value.name);

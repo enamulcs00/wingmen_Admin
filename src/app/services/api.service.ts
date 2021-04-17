@@ -328,6 +328,9 @@ export class ApiService {
   putApi(url,data) {
     return this.http.put(`${this.baseUrl}/api/v1/${url}`,data);
   }
+  postApi(url,data) {
+    return this.http.post(`${this.baseUrl}/api/v1/${url}`,data);
+  }
   getApi(url) {
     return this.http.get(`${this.baseUrl}/api/v1/${url}`);
   }

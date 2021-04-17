@@ -140,6 +140,7 @@ export class VehiclesComponent implements OnInit {
 
    
   deleteVehicle(id){ 
+    let url = `admin/blockUnblockDeleteVehicle`
     Swal.fire({
    title: 'Are you sure?',
    text: 'Once deleted, you will not be able to recover this Vehicle!',
@@ -155,7 +156,8 @@ export class VehiclesComponent implements OnInit {
       isDeleted:true,
       _id:id
     }
-     this.api.blockUnblockDeleteVehicleType(data).subscribe((res: any) => {
+     this.api.postApi(url,data).subscribe((res: any) => {
+       console.log("delect",res)
        if (!res.success) return;
        Swal.fire({
          title: 'Deleted!',
